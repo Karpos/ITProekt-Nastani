@@ -1,0 +1,66 @@
+﻿@model Nastani.ViewModels.PocetnaViewModel
+
+@{
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Events</title>
+    <style>
+        .background-img {
+            width: 25em;
+            height: 14em;                       
+            opacity: 0.4;                       
+        }
+        .cell {            
+            height: 14em;
+        }
+        #have-seen {
+            position: absolute;
+            right: 1em;
+            top: 0;
+        }
+        #going {
+            position: absolute;
+            right: 1em;
+            top: 1em;
+        }
+        #going-btn{
+            right: 1em;
+            bottom: 0;
+            position: absolute;
+            border-radius: 1em;
+        }
+        #going-btn:hover {
+            cursor:pointer;                
+        }
+    </style>    
+</head>
+<body>
+    <div> 
+        <div class="row">
+            @foreach (var item in Model.SiteNatani)
+            {
+            <div class="col-md-4 cell">
+                <h2 class="text-center">@item.Ime</h2>
+                <hr>
+                <p>
+                    @item.Opis.Substring(0, 100)
+                    ...                
+                </p>
+
+                <div class="cell-button"><p>@Html.ActionLink("Види","Event","Home", new { id = @item.NastanID }, null)</p></div>
+                <p id="have-seen">Виделе: @item.BrPosetenost </p>                
+                <p id="going">Одат: @item.PosetuvanOdKorisnici.Count </p>
+                <img class="background-img" src=@item.SodrziSliki.ElementAt(0).SlikaPateka />
+                <p id="going-btn" class="btn-danger">Одам<span class="glyphicon glyphicon-plane"></span></p>
+            </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+﻿@model Nastani.ViewModels.PocetnaViewModel
+    @{
+    ViewBag.Title = "Home Page";
+}
+<head>
+    <script>
+        $(function () {
+            $("img").width(document.body.offsetWidth);
+            $("img").height(document.body.offsetHeight);
+            
+        });
+    </script>
+    <style>
+       html, body {
+            margin: 0;
+            height: 100%;
+        }
+
+        .cell-button{
+            position: absolute;
+            left: 0px;
+            bottom: 1px;            
+            padding-left: 10px; 
+        }
+        .jumbotron {
+            height: 16em;
+            background-color:inherit;            
+        }        
+        .jumbotron h1{
+            font-weight: 600;
+        }
+        .cell p {
+            font-size: small;
+            font-weight: 600;
+        }
+        .cell hr {
+            border-color: black;
+            margin-top: 0;
+            margin-bottom: 0.5em;
+        }
+        .cell h2 {
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+    <img class="background-img" src="https://jobspotting.com/wp-content/uploads/2015/07/Gods-house.jpg">
+    <div>
+    <div class="jumbotron">
+        <h1 class="text-center">НАСТАНИ</h1>
+        <p class="lead text-center">Доживеј, Види, Искуси, ПОЈДИ НА НАСТАН </p>
+        <br /><p class="lead text-center">СИТЕ НАСТАНИ на едно место</p>
+        <div class="text-center">
+        @Html.ActionLink("Прегледај НАСТАНИ", "Events", "Home", new { area = "" }, new { @class = "text-center btn btn-primary btn-lg" })
+        </div>
+    </div>
+</div>  
+
+    <!--<div class="row">
+        <div class="col-md-4 cell">
+            <h2 class="text-center">(majmunce)Model.TriNajpopularni.ElementAt(0).Ime</h2>
+            <hr>
+            <p>
+                (majmunce)Model.TriNajpopularni.ElementAt(0).Opis.Substring(0, 100)
+                ...
+            </p>
+            <div class="cell-button"><p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Види &raquo;</a></p></div>
+        </div>
+        <div class="col-md-4 cell">
+            <h2 class="text-center">(majmunce)Model.TriNajpopularni.ElementAt(1).Ime</h2>
+            <hr>
+            <p>
+                (majmunce)Model.TriNajpopularni.ElementAt(1).Opis.Substring(0, 100)
+                ...
+            </p>
+            <div class="cell-button"><p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Види &raquo;</a></p></div>
+        </div>
+        <div class="col-md-4 cell">
+            <h2 class="text-center">(majmunce)Model.TriNajpopularni.ElementAt(2).Ime</h2>
+            <hr>
+            <p>
+                (majmunce)Model.TriNajpopularni.ElementAt(2).Opis.Substring(0, 100) 
+                ...
+            </p>
+            <div class="cell-button"><p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Види &raquo;</a></p></div>
+        </div>
+    </div>-->

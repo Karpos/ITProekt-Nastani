@@ -1,0 +1,137 @@
+﻿@model Nastani.ViewModels.PocetnaViewModel
+
+@{    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Event</title>
+    <style>
+        .galery-container {            
+            width: 700px;
+            height: 420px;
+            background-color: black;
+            margin: 2em;
+            margin-left: 17em;            
+            padding: 9px;
+        }
+        .img-galery {
+            width: 700px; 
+            height: 400px;
+        }
+        #btn-left,#btn-right{
+            width: 2em;
+            height: 2em;
+            cursor: pointer;
+            margin-left: 26em;
+        }        
+       html, body {
+            margin: 0;
+            height: 100%;
+        }
+
+        #when-where {
+            font-weight: 600;
+            font-size: x-large;            
+        }
+        hr {
+            bottom: 0;
+        }
+        #description {
+            font-size: large;
+            font-weight: 600;
+            font-family:'Baskerville Old Face';            
+        }
+        .jumbotron {
+            padding-bottom: 1em;
+            margin-bottom: 1.8em;
+        }
+        #when-where p {
+            margin: 1.5em 0px 10px 0px;
+        }
+    </style>
+    <script>
+        $(function () {            
+            $("body").width($(".body-content").width());
+            $("body").height($(".body-content").height());
+            $("footer")
+            $("img").click(function () {
+                $(this).fadeToggle();
+                $(this).next().attr("hidden", false);
+            });
+            $("#btn-left").click(function () {
+
+                var thisImg = $(".selected, .was-selected-right");
+                thisImg.fadeToggle().removeClass("selected").hide()
+                if (!thisImg.hasClass("was-selected-right")) {
+                    thisImg.prev().addClass("selected").fadeToggle();
+                }
+                else if (thisImg.hasClass("was-selected-right")) {
+                    thisImg.removeClass("was-selected-right").addClass("selected").fadeToggle();
+                }                
+                
+                if (thisImg.prevAll().length == 0) {
+                    $(".galery-container").children().first().addClass("was-selected-left");
+                }                
+            });
+            $("#btn-right").click(function () {
+
+                var thisImg = $(".selected, .was-selected-left");
+                thisImg.fadeToggle().removeClass("selected").hide();
+                if (!thisImg.hasClass("was-selected-left")) {
+                    thisImg.next().addClass("selected").fadeToggle();
+                }
+                else if (thisImg.hasClass("was-selected-left"))
+                {
+                    thisImg.removeClass("was-selected-left").addClass("selected").fadeToggle();
+                }                
+                
+                if (thisImg.nextAll().length == 0) {
+
+                    $(".galery-container").children().last().addClass("was-selected-right");
+                    
+                }
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        
+        <div>
+            <div class="jumbotron">
+                <h1 class="text-center"> @Model.SelektiranNastan.Ime </h1>
+                <div id="when-where" class="row">
+                    <div id="date-time" class="text-left col-md-6 col-xs-12">
+                        <p>Кога: @Model.SelektiranNastan.Datum.Day.@Model.SelektiranNastan.Datum.Month.@Model.SelektiranNastan.Datum.Year @Model.SelektiranNastan.Datum.Hour:@Model.SelektiranNastan.Datum.Minute</p>
+
+
+                    </div>
+                    <div id="where" class="text-right col-md-6 col-xs-6">
+                        <p>Каде: Водно </p>
+                    </div>
+                </div>
+            </div>
+            
+                            
+            <div id="description">
+                @Model.SelektiranNastan.Opis
+            </div>
+        </div>
+    </div>
+    <div class="galery-container">
+
+        <img class ="img-galery selected" src="@Model.SelektiranNastan.SodrziSliki.ElementAt(0).SlikaPateka">
+        @for (var i = 1; i < Model.SelektiranNastan.SodrziSliki.Count(); i++)
+        {
+            <img class ="img-galery" src="@Model.SelektiranNastan.SodrziSliki.ElementAt(i).SlikaPateka" hidden="true">        
+        }
+    </div>
+    <span id="btn-left" class="glyphicon glyphicon-chevron-left"></span>
+    <span id="btn-right" class="glyphicon glyphicon-chevron-right"></span>
+</body>
+</html>
