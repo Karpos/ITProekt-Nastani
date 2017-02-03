@@ -11,6 +11,7 @@ namespace Nastani.DataAccessLayer
     {
         protected override void Seed(NastaniDBContext context)
         {
+            
             var korisnici = new List<Korisnik> {
                 new Korisnik {
                     Email = "martin.avramoski@gmail.com",
@@ -71,55 +72,55 @@ namespace Nastani.DataAccessLayer
             context.SaveChanges();
             var nastani = new List<Nastan>{
                 new Nastan {
-                    
+
                     Opis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non lorem vel dolor posuere congue. Sed venenatis imperdiet ipsum, a convallis lacus consequat sit amet. Donec nisl justo, hendrerit vitae tortor ac, tempus tincidunt arcu. ",
-                    Datum = DateTime.Now,
+                    Datum = DateTime.Now.ToString(),
                     Ime = "Kode Pu",
                     BrPosetenost = 32,
                     VkupnaOcena = 4,
-                    Email = "marko.paloski@gmail.com"
+                    Email = "marko.paloski@gmail.com",
+                    SodrziSliki = new List<Slika> {
+                        new Slika {
+                            SlikaID=1,
+                            SlikaPateka="http://codefu.mk/files/poster/2009/CodeFu2009.jpg"
+                        }
+                    }
+                    
             },
                 new Nastan {
                     
                     Opis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non lorem vel dolor posuere congue. Sed venenatis imperdiet ipsum, a convallis lacus consequat sit amet. Donec nisl justo, hendrerit vitae tortor ac, tempus tincidunt arcu. ",
-                    Datum = DateTime.Now,
+                    Datum = DateTime.Now.ToString(),
                     Ime = "MojNastan",
                     BrPosetenost = 32,
                     VkupnaOcena = 4,
-                    Email = "marko.paloski@gmail.com"
+                    Email = "marko.paloski@gmail.com",
+                    SodrziSliki = new List<Slika> {
+                        new Slika {
+                            SlikaID=2,
+                            SlikaPateka = "http://www.happiestminds.com/blogs/wp-content/uploads/2015/11/IMG-20151106-WA0013.jpg",
+                        }
+                    }
             },
                 new Nastan {
                     
                     Opis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non lorem vel dolor posuere congue. Sed venenatis imperdiet ipsum, a convallis lacus consequat sit amet. Donec nisl justo, hendrerit vitae tortor ac, tempus tincidunt arcu. ",
-                    Datum = DateTime.Now,
+                    Datum = DateTime.Now.ToString(),
                     Ime = "INastan",
                     BrPosetenost = 32,
                     VkupnaOcena = 4,
-                    Email = "martin.avramoski@gmail.com"
+                    Email = "martin.avramoski@gmail.com",
+                    SodrziSliki = new List<Slika> {
+                        new Slika {
+                            SlikaID=3,
+                            SlikaPateka = "http://www.revelryeventdesigners.com/wp-content/uploads/2011/05/revelry-event-designers-homepage-slideshow-38.jpeg",
+                        }
+                    }
         }
 
     };
             nastani.ForEach(s => context.Nastani.Add(s));
-            context.SaveChanges();
-            var sliki = new List<Slika>{
-                new Slika {
-                    SlikaID  = 1,
-                    SlikaPateka = "https://www.google.com/search?q=code+fu&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiB3YbroYzOAhWEthoKHak6BeIQ_AUICSgC&biw=1396&bih=723&dpr=0.9#imgdii=SFfcPuwep0TeMM%3A%3BSFfcPuwep0TeMM%3A%3Bi0VeSNfqRnpFnM%3A&imgrc=SFfcPuwep0TeMM%3A",
-                    NastanID = 1
-                },
-                new Slika {
-                    SlikaID  = 2,
-                    SlikaPateka = "https://www.google.com/search?q=code+fu&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiB3YbroYzOAhWEthoKHak6BeIQ_AUICSgC&biw=1396&bih=723&dpr=0.9#imgrc=_",
-                    NastanID = 1
-                },
-                new Slika {
-                    SlikaID  = 3,
-                    SlikaPateka = "https://www.google.com/search?q=nastan&biw=1396&bih=723&tbm=isch&source=lnms&sa=X&ved=0ahUKEwjy6OzJoozOAhVCMBoKHe7hAXUQ_AUICCgD&dpr=0.9#tbm=isch&q=it+event&imgrc=GdlmLlIIhLKoTM%3A",
-                    NastanID = 1
-                }
-            };
-            sliki.ForEach(s => context.Sliki.Add(s));
-            context.SaveChanges();
+            context.SaveChanges();            
             var tipovi = new List<Tip> {
                 new Tip {
                     TipID = 1,
@@ -178,7 +179,7 @@ namespace Nastani.DataAccessLayer
                 }
             };
             ocenki.ForEach(s => context.Oceni.Add(s));
-            context.SaveChanges(); 
+            context.SaveChanges();       
         }
     }
 }

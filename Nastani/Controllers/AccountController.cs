@@ -11,12 +11,14 @@ using Microsoft.Owin.Security;
 using Nastani.Models;
 using Nastani.Repository;
 using System.Web.Security;
-
+using Nastani.DataAccessLayer;
 namespace Nastani.Controllers
 {
+    
     [Authorize]
     public class AccountController : Controller
     {
+        NastaniDBContext nastaniDBContext = new NastaniDBContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -74,7 +76,7 @@ namespace Nastani.Controllers
             {
                 var email = model.Email;
                 var password = model.Password;
-                Korisnik korisnik = new KorisnikRepository().getById(email);
+                Korisnik korisnik = new KorisnikRepository(nastaniDBContext).getById(email);
                 if (korisnik.Lozinka == password)
                 {
                     FormsAuthentication.SetAuthCookie(email, false);

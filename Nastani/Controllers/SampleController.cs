@@ -14,7 +14,7 @@ namespace Nastani.Controllers
         public ActionResult Index()
         {
             SiteKorisniciModel sk = new SiteKorisniciModel();
-            sk.siteKorisnici = new KorisnikRepository().getAll().ToList();
+            //sk.siteKorisnici = new KorisnikRepository().getAll().ToList();
 
             return View(sk);
         }

@@ -1,0 +1,99 @@
+﻿@model Nastani.ViewModels.PocetnaViewModel
+@{
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddEvent</title>
+</head>
+<body>
+    <div class="col-md-offset-4 col-md-6">
+        <h1 for="naslov">Додади настан</h1>
+        <div class="form-group">
+            <label for="naslov">Додади наслов</label>
+            <input type="text" id="naslov" class="form-control" value="@Model.SelektiranNastan.Ime"/>
+            <label for="koga">Додади кога: </label>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="datepicker">Дата</label>
+                    <input type="text" id="datepicker" class="form-control" value="@Model.SelektiranNastan.Datum.Split(' ')[0]">
+                </div>
+                <div class="col-md-2">
+                    <label for="saat">Час</label>
+                    <input type="number" id="saat" class="form-control" value="@Model.SelektiranNastan.Datum.Split(' ')[1].Split(':')[0]">
+                </div>
+                <div class="col-md-2">
+                    <label for="minuti">Мин</label>
+                    <input type="number" id="minuti" class="form-control" value="@Model.SelektiranNastan.Datum.Split(' ')[1].Split(':')[1]">
+                </div>
+            </div>
+            <label for="kade">Додади каде</label>
+            <input type="text" id="kade" class="form-control" value="Водно"/>
+            <label for="slika">Додади слики</label>
+            <input type="text" id="sliki" class="form-control" />
+            <div id="dodadi-slika" class="btn btn-info">Додади</div><br />
+            <label for="tekst">Додади текст</label>
+            <textarea type="text" id="tekst" class="form-control">@Model.SelektiranNastan.Opis</textarea>
+            <br />
+            <div class="btn btn-info" id="dodadi">Зачувај измени</div>
+            <div id="error" style="color:red" hidden>***Сите полиња мора да бидат пополнети</div>
+            <br /><label>Слики:</label>
+            <div id="dodadeni-sliki">
+                @foreach (var @slika in @Model.SelektiranNastan.SodrziSliki) {
+                    <p>-@slika.SlikaPateka</p>
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(function () {
+            var sliki = new Array();
+            $('#datepicker').datepicker();
+
+            $("#dodadi-slika").click(function () {
+
+                sliki.push($("#sliki").val());
+                $("#dodadeni-sliki").append("<br/> - " + $("#sliki").val());
+                $("#sliki").val("");
+                //Da se proveri dali ima voopsto dodadeno korisnikot sliki (ako nema pagja)
+
+            });
+            $("#dodadi").click(function () {
+                var naslov = $('#naslov').val();
+                var kade = $('#kade').val();
+                var tekst = $('#tekst').val();
+                var saat = $('#saat').val();
+                var minuti = $('#minuti').val();
+                var data = $('#datepicker').val();
+                var koga = data + " " + saat + ":" + minuti;
+                if (naslov == "" || koga == "" || kade == "" || tekst == "" || saat == "" || minuti == "" || data == "") {
+                    $('#error').show();
+                }
+                else {
+                    console.log(kade);
+                    $('#error').hide();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Home/EditEvent',
+                        dataType: 'json',
+                        data: { naslov: naslov, koga: koga, kade: kade, tekst: tekst, sliki: sliki, id: @Model.SelektiranNastan.NastanID },
+                        success: function (data) {
+                            url = 'http://' + window.location.host + '/Home/Events';
+                            window.location = url;
+                        },
+                        error: function () {
+                            alert("some error has ocured");
+                        }
+                    });
+                }
+            });
+        });
+
+
+    </script>
+</body>
+</html>

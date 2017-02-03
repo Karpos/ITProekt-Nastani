@@ -1,7 +1,7 @@
 ﻿@model Nastani.ViewModels.PocetnaViewModel
 
 @{
-    
+
 }
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
             right: 1em;
             top: 0;
         }
-        #going {
+        .going {
             position: absolute;
             right: 1em;
             top: 1em;
@@ -38,10 +38,14 @@
         #going-btn:hover {
             cursor:pointer;                
         }
-    </style>    
+    </style>
 </head>
 <body>
     <div> 
+        @if (Model.KorisnikEAdmin)
+        {
+            @Html.ActionLink("Додади настан", "AddEvent", "Home", new { area = "" }, new { @class = "text-center btn btn-primary" })
+        }
         <div class="row">
             @foreach (var item in Model.SiteNatani)
             {
@@ -49,18 +53,57 @@
                 <h2 class="text-center">@item.Ime</h2>
                 <hr>
                 <p>
-                    @item.Opis.Substring(0, 100)
+                    @if (@item.Opis.Length >= 100)
+                    {
+                        @item.Opis.Substring(0, 100)
+                    }
+                    else {
+                        @item.Opis
+                    }
+                    
                     ...                
                 </p>
 
-                <div class="cell-button"><p>@Html.ActionLink("Види","Event","Home", new { id = @item.NastanID }, null)</p></div>
+                <div class="cell-button"><p>@Html.ActionLink("Види", "Event", "Home", new { id = @item.NastanID }, null)</p></div>
                 <p id="have-seen">Виделе: @item.BrPosetenost </p>                
-                <p id="going">Одат: @item.PosetuvanOdKorisnici.Count </p>
-                <img class="background-img" src=@item.SodrziSliki.ElementAt(0).SlikaPateka />
-                <p id="going-btn" class="btn-danger">Одам<span class="glyphicon glyphicon-plane"></span></p>
+                @if (!@item.PosetuvanOdKorisnici.Any())
+                {
+                    <p class="going" id="@item.NastanID">Одат: 0</p>
+                }
+                else
+                {
+                    <p class="going" id="@item.NastanID">Одат: @item.PosetuvanOdKorisnici.Count</p>                    
+                }
+                @if (@item.SodrziSliki.Any())
+                {
+                    <img class="background-img" src=@item.SodrziSliki.ElementAt(0).SlikaPateka />
+                }
+                <p id="going-btn" class="btn-danger going-on" ev-id="@item.NastanID">Одам<span class="glyphicon glyphicon-plane"></span></p>                
             </div>
             }
         </div>
     </div>
+        <script>
+            $(function () {
+                $(".going-on").click(function () {
+                    var id = $(this).attr("ev-id");
+                    console.log(id + " " + $("#going"));
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Home/AddGoing',
+                        dataType: 'json',
+                        data: {  id: id },
+                        success: function (data) {
+                            console.log(data);
+                            $("#" + id).html("Одат: " + data);
+                        },
+                        error: function () {
+                            alert("some error has ocured");
+                        }
+                    });
+                });
+            });
+        </script>
+            
 </body>
 </html>

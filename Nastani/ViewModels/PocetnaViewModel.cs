@@ -11,5 +11,7 @@ namespace Nastani.ViewModels
         public IEnumerable<Nastan> SiteNatani { get; set; }
         public IEnumerable<Nastan> TriNajpopularni{ get; set; }
         public Nastan SelektiranNastan { get; set; }
+
+        public Boolean KorisnikEAdmin { get; set; }
     }
 }

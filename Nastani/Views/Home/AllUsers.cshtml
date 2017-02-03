@@ -1,0 +1,80 @@
+﻿@model Nastani.ViewModels.SiteKorisniciModel
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AllUsers</title>
+    <style>
+        hr {        
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0; 
+    }
+    </style>
+</head>
+<body>
+    <div class="row"> 
+        <h2 class="col-md-1"></h2>
+        <h2 class="col-md-3">Е пошта</h2>
+        <h2 class="col-md-3">Име</h2>
+        <h2 class="col-md-3">Презиме</h2>
+        <h2 class="col-md-2">Админ</h2>
+        <br/>
+        <br/>
+        <br />
+        <hr />            
+        @foreach (var @item in Model.siteKorisnici)
+        {            
+            <h4 class="col-md-1"></h4>
+            <h4 class="col-md-3" class="email">@item.Email</h4>
+            <h4 class="col-md-3">@item.Ime</h4>
+            <h4 class="col-md-3">@item.Prezime</h4>
+            <h4 class="col-md-2" ><input class="eadmin" type="checkbox" checked="@item.EAdmin"/></h4>                        
+        }        
+        <div class="btn btn-info col-md-offset-9" id="zacuvaj">Зачувај ги промените</div>
+    </div>
+    <script>
+        $(function () {
+            var list = {};
+            $(".eadmin").click(function () {
+                var clickedEmail = $(this).parent().prev().prev().prev().text();
+                var clickedValue = $(this).prop("checked");
+                //console.log(clickedEmail + " " + clickedValue);                
+                list[clickedEmail] = clickedValue;
+                
+            });
+            $("#zacuvaj").click(function () {
+                
+                var toList = new Array();
+                var keys = Object.keys(list);                
+                for (var i = 0 ; i < keys.length; i ++) {
+                    console.log(keys[i] + ":" + list[keys[i]]);
+                    toList.push(keys[i] + ":" + list[keys[i]]);
+                }
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/Home/AllUsers',
+                    dataType: 'json',
+                    data: { lista: toList },
+                    success: function (data) {
+                        url = 'http://' + window.location.host + '/Home/AllUsers';
+                        window.location = url;
+                    },
+                    error: function () {
+                        alert("some error has ocured");
+                    }
+                });
+            });
+        });
+        
+    </script>
+</body>
+</html>

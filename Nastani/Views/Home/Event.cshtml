@@ -14,9 +14,9 @@
             width: 700px;
             height: 420px;
             background-color: black;
-            margin: 2em;
-            margin-left: 17em;            
-            padding: 9px;
+            margin: 5em;
+            margin-left: 25em; 
+            padding: 5px;            
         }
         .img-galery {
             width: 700px; 
@@ -102,13 +102,14 @@
 <body>
     <div class="container-fluid">
         
-        <div>
-            <div class="jumbotron">
+        <div class="row">            
+            <div class="jumbotron col-md-offset-3 col-md-9">                
                 <h1 class="text-center"> @Model.SelektiranNastan.Ime </h1>
+               
                 <div id="when-where" class="row">
                     <div id="date-time" class="text-left col-md-6 col-xs-12">
-                        <p>Кога: @Model.SelektiranNastan.Datum.Day.@Model.SelektiranNastan.Datum.Month.@Model.SelektiranNastan.Datum.Year @Model.SelektiranNastan.Datum.Hour:@Model.SelektiranNastan.Datum.Minute</p>
-
+                        <p>Кога: @Model.SelektiranNastan.Datum</p>
+                        
 
                     </div>
                     <div id="where" class="text-right col-md-6 col-xs-6">
@@ -117,18 +118,25 @@
                 </div>
             </div>
             
-                            
-            <div id="description">
+             @if (Model.KorisnikEAdmin){
+                @Html.ActionLink("Избриши", "deleteEvent", "Home", new { id = @Model.SelektiranNastan.NastanID}, new { @class = "text-center btn btn-danger pull-right" })
+                @Html.ActionLink("Измени", "EditEvent", "Home", new { id = @Model.SelektiranNastan.NastanID }, new { @class = "text-center btn btn-info pull-right", @style = "margin-right:2em" })
+             }   
+            
+            <div id="description" class="col-md-offset-3 col-md-9">
                 @Model.SelektiranNastan.Opis
             </div>
         </div>
     </div>
     <div class="galery-container">
-
+        @if (@Model.SelektiranNastan.SodrziSliki.Any())
+        {
         <img class ="img-galery selected" src="@Model.SelektiranNastan.SodrziSliki.ElementAt(0).SlikaPateka">
+        }
+
         @for (var i = 1; i < Model.SelektiranNastan.SodrziSliki.Count(); i++)
         {
-            <img class ="img-galery" src="@Model.SelektiranNastan.SodrziSliki.ElementAt(i).SlikaPateka" hidden="true">        
+            <img class ="img-galery"  src="@Model.SelektiranNastan.SodrziSliki.ElementAt(i).SlikaPateka" hidden="true">        
         }
     </div>
     <span id="btn-left" class="glyphicon glyphicon-chevron-left"></span>

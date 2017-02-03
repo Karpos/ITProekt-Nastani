@@ -9,8 +9,12 @@ namespace Nastani.Repository
 {
     public class KorisnikRepository
     {
-        public ICollection<Korisnik> getAll() {
-            NastaniDBContext nastaniDBContext = new NastaniDBContext();
+        NastaniDBContext nastaniDBContext;
+        public KorisnikRepository(NastaniDBContext nastaniDBContext)
+        {
+            this.nastaniDBContext = nastaniDBContext;
+        }
+        public ICollection<Korisnik> getAll() {            
             List<Korisnik> korisnici =  nastaniDBContext.Korisnici.Include("OdiNaNastani").Include("KreiraNastani").Include("OcenuvaNastan").Include("KometiraNastan").ToList();
             return korisnici;
         }

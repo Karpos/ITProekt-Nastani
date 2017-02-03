@@ -9,10 +9,13 @@ namespace Nastani
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui*"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+            
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -30,7 +33,7 @@ namespace Nastani
             bundles.Add(new ScriptBundle("~/bundles/galery")
                 .Include("~/Scripts/jquery.slides.min.js")
                 .Include("~/Scripts/galleria-1.4.2.min.js")
-                      );
+                      );            
         }
     }
 }

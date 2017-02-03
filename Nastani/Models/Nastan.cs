@@ -10,7 +10,7 @@ namespace Nastani.Models
     {
         public int NastanID { get; set; }
         public string Opis { get; set; }
-        public DateTime Datum { get; set; }
+        public String Datum { get; set; }
         public string Ime { get; set; }
         public int BrPosetenost { get; set; }
         public float VkupnaOcena { get; set; }
