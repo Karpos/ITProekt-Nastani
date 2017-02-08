@@ -20,7 +20,7 @@ namespace Nastani.Repository
         }
         public Korisnik getById(string Email) {
             List<Korisnik> korisnici = getAll().ToList();
-            Korisnik korisnik = korisnici.Where(t => t.Email == Email).FirstOrDefault();            
+            Korisnik korisnik = korisnici.Where(t => t.Email == Email).FirstOrDefault();
             return korisnik;
         }
         public Korisnik getNastaniForKorisnik(string Email) {                        

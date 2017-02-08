@@ -156,9 +156,19 @@ namespace Nastani.Controllers
         }
         [HttpGet]
         public ActionResult AllUsers() {
-            SiteKorisniciModel model = new SiteKorisniciModel();
-            model.siteKorisnici = new KorisnikRepository(nastaniDBContext).getAll().ToList();
-            return View(model);
+            Korisnik k = new Korisnik();
+            if (User.Identity.IsAuthenticated)
+            {
+                k = new KorisnikRepository(nastaniDBContext).getById(User.Identity.Name);
+                if (k.EAdmin)
+                {
+                    SiteKorisniciModel model = new SiteKorisniciModel();
+                    model.siteKorisnici = new KorisnikRepository(nastaniDBContext).getAll().ToList();
+                    return View(model);
+
+                }
+            }
+            return RedirectToAction("/Events");
         }
         [HttpPost]
         public ActionResult AllUsers(List<String> lista) {

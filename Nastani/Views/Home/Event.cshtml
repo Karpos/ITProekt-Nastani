@@ -9,7 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Event</title>
-    <style>
+    <style>        
         .galery-container {            
             width: 700px;
             height: 420px;
@@ -54,10 +54,10 @@
         }
     </style>
     <script>
-        $(function () {            
+        $(function () {
+            $('footer').css("bottom", "-26em");
             $("body").width($(".body-content").width());
-            $("body").height($(".body-content").height());
-            $("footer")
+            $("body").height($(".body-content").height());            
             $("img").click(function () {
                 $(this).fadeToggle();
                 $(this).next().attr("hidden", false);
@@ -95,6 +95,7 @@
                     
                 }
             });
+            
         });
         
     </script>
@@ -138,8 +139,9 @@
         {
             <img class ="img-galery"  src="@Model.SelektiranNastan.SodrziSliki.ElementAt(i).SlikaPateka" hidden="true">        
         }
-    </div>
+    </div>    
     <span id="btn-left" class="glyphicon glyphicon-chevron-left"></span>
     <span id="btn-right" class="glyphicon glyphicon-chevron-right"></span>
+    
 </body>
 </html>
